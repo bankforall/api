@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pleaseworkibegyou/bankForThePoor.git"
+    "url": "git+https://github.com/pleaseworkibegyou/bankForAllBackEnd.git"
   },
   "keywords": [
     "bank4all"
@@ -18,9 +18,9 @@
   "author": "PCep",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/pleaseworkibegyou/bankForThePoor/issues"
+    "url": "https://github.com/pleaseworkibegyou/bankForAllBackEnd/issues"
   },
-  "homepage": "https://github.com/pleaseworkibegyou/bankForThePoor#readme",
+  "homepage": "https://github.com/pleaseworkibegyou/bankForAllBackEnd#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
