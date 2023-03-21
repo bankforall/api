@@ -5,7 +5,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const app = express();
 const session = require("express-session");
-const auth_middleware = require("./middleware/auth");
+const auth_middleware = require("../middleware/auth");
 
 app.set("trust proxy", 1); // trust first proxy
 var sess = {
