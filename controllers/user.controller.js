@@ -4,6 +4,7 @@ const getProfile = async (req, res) => {
     fullname: req.user.fullname,
     email: req.user.email,
     phoneNumber: req.user.phoneNumber,
+    balance: req.user.balance,
   });
 };
 
