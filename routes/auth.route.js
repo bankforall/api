@@ -1,3 +1,4 @@
+const passport = require("passport");
 const router = require("express").Router();
 const { signIn, signUp } = require("../controllers/auth.controller");
 
