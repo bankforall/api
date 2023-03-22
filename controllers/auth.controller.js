@@ -1,9 +1,17 @@
 const User = require("../models/user.model");
+const {
+  loginSchema,
+  registerSchema,
+} = require("../validations/auth.validation");
 const bcrypt = require("bcryptjs");
 const { generateToken } = require("../utils/token");
 
 const signIn = async (req, res) => {
   try {
+    if (loginSchema.validate(req.body).error) {
+      return res.status(400).json({ message: "Invalid data" });
+    }
+
     const { email, password } = req.body;
 
     const user = await User.findOne({ email: email });
@@ -32,6 +40,10 @@ const signIn = async (req, res) => {
 
 const signUp = async (req, res) => {
   try {
+    if (registerSchema.validate(req.body).error) {
+      return res.status(400).json({ message: "Invalid data" });
+    }
+
     const { fullname, email, password, phoneNumber } = req.body;
 
     const userExist = await User.findOne({ email: email });

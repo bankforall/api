@@ -17,8 +17,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 
 
-app.use("/", authRoute);
-app.use("/", userRoute);
+app.use("/auth", authRoute);
+app.use("/user", userRoute);
 
 app.get("/", (req, res) => {
   return res.status(200).json({
