@@ -60,8 +60,6 @@ const signUp = async (req, res) => {
       phoneNumber,
     });
 
-    console.log(user);
-
     return res.status(200).json({
       access_token: generateToken(user._id),
     });
