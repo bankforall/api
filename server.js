@@ -4,6 +4,7 @@ const connectDB = require("./database/connect");
 const authRoute = require("./routes/auth.route");
 const userRoute = require("./routes/user.route");
 require("dotenv").config();
+require("./config/passport")(passport);
 
 connectDB();
 
@@ -15,7 +16,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 
-require("./config/passport")(passport);
 
 app.use("/", authRoute);
 app.use("/", userRoute);
