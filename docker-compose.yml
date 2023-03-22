@@ -1,0 +1,26 @@
+services:
+  backend:
+    container_name: backend
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    command: npm run start
+    ports:
+      - "8080:5000"
+    environment:  
+      - PORT=5000
+      - JWT_SECRET_KEY=secret
+      - MONGO_URI=mongodb://database:27017
+      - NODE_ENV=production
+    depends_on:
+      - database
+
+
+  database:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
