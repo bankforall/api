@@ -24,6 +24,22 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
     },
+    microfinanceBalance: {
+      type: Number,
+      default: 0,
+    },
+    peerShareBalance: {
+      type: Number,
+      default: 0,
+    },
+    creditScore: {
+      type: String,
+      default: "A",
+    },
+    currentDE: {
+      type: String,
+      default: "0",
+    },
   },
   {
     timestamps: true,

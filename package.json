@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend-related files for Bank4All project!",
+  "description": "Backend-related files for Bank For All project!",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
