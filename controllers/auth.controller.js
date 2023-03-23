@@ -34,7 +34,9 @@ const signIn = async (req, res) => {
       access_token: generateToken(user._id),
     });
   } catch (error) {
-    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Something went wrong, please try again later" });
   }
 };
 
@@ -76,7 +78,9 @@ const signUp = async (req, res) => {
       access_token: generateToken(user._id),
     });
   } catch (error) {
-    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Something went wrong, please try again later" });
   }
 };
 
