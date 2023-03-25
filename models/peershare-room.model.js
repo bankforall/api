@@ -63,7 +63,7 @@ const peerShareRoomSchema = new Schema(
           default: "member",
           enum: ["member", "admin"],
         },
-        isBidding: {
+        isBidden: {
           type: Boolean,
           default: false,
         },
