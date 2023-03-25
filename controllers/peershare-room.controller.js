@@ -43,7 +43,7 @@ const createRoom = async (req, res) => {
       noHand,
       typeRoom,
       private,
-      roomPassword,
+      roomPassword, 
       members: [
         {
           user: req.user._id,

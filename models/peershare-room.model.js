@@ -2,32 +2,32 @@ const { Schema, model } = require("mongoose");
 
 const peerShareRoomSchema = new Schema(
   {
-    groupName: { //ชื่อกลุ่มเปียแชร์
+    groupName: {
       type: String,
       required: true,
       unique: true,
     },
-    paymentTerm: { //แต่ละคนต้องจ่ายเท่าไหร่
+    paymentTerm: {
       type: Number,
       required: true,
     },
-    creditRequest: { //Credit Score แบ่งตามเกณฑ์  A B C D รับมาจาก FrontEnd เลย
+    creditRequest: {
       type: String,
       required: true,
     },
-    noHand: { //มีกี่คนในห้อง
+    noHand: {
       type: Number,
       required: true,
     },
-    typeRoom: { //ประเภท float หรืออะไรซักอย่าง
+    typeRoom: {
       type: String,
       required: true,
     },
-    private: { //วงปิดหรือเปิด
+    private: {
       type: Boolean,
       required: true,
     },
-    members: [ //จำนวนสมาชิก
+    members: [
       {
         user: {
           type: Schema.Types.ObjectId,
@@ -37,20 +37,32 @@ const peerShareRoomSchema = new Schema(
           type: String,
           default: "member",
           enum: ["member", "admin"],
-        },  
+        },
       },
     ],
-    inviteCode: { //รหัสชวนเข้ากลุ่ม
+    inviteCode: {
       type: String,
       unique: true,
     },
-    roomPassword: { //รหัสกลุ่ม
+    roomPassword: {
       type: String,
       default: "",
     },
+    bidTime: {
+      type: Number,
+      default: 24,
+    },
+    bidDate: {
+      type: String,
+      default: "1w",
+    },
+    startDate: {
+      type: Date,
+      required: true,
+    },
   },
   {
-    timestamps: true, //let MongoDB know that it must take timestamp
+    timestamps: true,
   }
 );
 

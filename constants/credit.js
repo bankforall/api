@@ -6,3 +6,7 @@ const credit = {
   E: 1,
   F: 0,
 };
+
+module.exports = {
+  credit
+}
