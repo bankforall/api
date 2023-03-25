@@ -4,24 +4,19 @@ const {
   createRoom,
   joinRoom,
   getAllRooms,
+  getAllMembersInRoom,
 } = require("../controllers/peershare-room.controller");
 
-// router.post("/", passport.authenticate("jwt", { session: false }), createRoom);
-
 router.post(
-  "/join/:id",
+  "/join/:inviteCode",
   passport.authenticate("jwt", { session: false }),
   joinRoom
 );
 
-router
-  .route(
-    "/",
-    passport.authenticate("jwt", {
-      session: false,
-    })
-  )
-  .get(getAllRooms)
-  .post(createRoom);
+router.post("/", passport.authenticate("jwt", { session: false }), createRoom);
+
+router.get("/", passport.authenticate("jwt", { session: false }), getAllRooms);
+
+router.get("/:id/member", getAllMembersInRoom);
 
 module.exports = router;

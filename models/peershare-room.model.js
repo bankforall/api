@@ -37,7 +37,7 @@ const peerShareRoomSchema = new Schema(
           type: String,
           default: "member",
           enum: ["member", "admin"],
-        },
+        },  
       },
     ],
     inviteCode: { //รหัสชวนเข้ากลุ่ม
@@ -46,6 +46,7 @@ const peerShareRoomSchema = new Schema(
     },
     roomPassword: { //รหัสกลุ่ม
       type: String,
+      default: "",
     },
   },
   {
