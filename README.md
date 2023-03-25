@@ -7,7 +7,7 @@ source api: https://docs.google.com/document/d/1CPJrx3pA0Jv5GVAcEpaOK1QWkTm8xNUX
 
 ### api docs
 
-[`docs.http`](./docs.http) file for test API (use [REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) vscode extension)
+[`docs.http`](./docs/docs.http) file for test API (use [REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) vscode extension)
 
 ---
 
