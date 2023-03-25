@@ -17,7 +17,6 @@ app.use(passport.initialize());
 app.use("/auth", require("./routes/auth.route"));
 app.use("/user", require("./routes/user.route"));
 app.use("/transaction", require("./routes/transaction.route"));
-app.use("/peershare", require("./routes/peershare.route"));
 
 app.get("/", (req, res) => {
   return res.status(200).json({
