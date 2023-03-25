@@ -53,7 +53,7 @@ const signUp = async (req, res) => {
       return res.status(400).json({ message: "Invalid data" });
     }
 
-    const { fullname, email, password, phoneNumber } = req.body;
+    const { fullname, email, password, phoneNumber, avatar } = req.body;
 
     const userExist = await User.findOne({ email: email });
 
@@ -79,14 +79,15 @@ const signUp = async (req, res) => {
       email,
       password: hashedPassword,
       phoneNumber,
+      avatar,
     });
 
     const token = generateToken(user._id);
 
-    // res.setHeader(
-    //   "Set-Cookie",
-    //   `token=${token}; HttpOnly; Path=/; Max-Age=7200; SameSite=Strict; Secure;`
-    // );
+    res.setHeader(
+      "Set-Cookie",
+      `token=${token}; HttpOnly; Path=/; Max-Age=7200; SameSite=Strict; Secure;`
+    );
 
     return res.status(200).json({
       access_token: token,
