@@ -37,7 +37,7 @@ const peerShareRoomSchema = new Schema(
           type: String,
           default: "member",
           enum: ["member", "admin"],
-        },
+        },  
       },
     ],
     inviteCode: {
@@ -46,6 +46,7 @@ const peerShareRoomSchema = new Schema(
     },
     roomPassword: {
       type: String,
+      default: "",
     },
   },
   {
