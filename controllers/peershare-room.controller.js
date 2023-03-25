@@ -1,4 +1,5 @@
 const PeerShareRoom = require("../models/peershare-room.model");
+const generateInviteCode = require("../utils/inviteCode");
 
 const createRoom = async (req, res) => {
   try {
@@ -20,6 +21,8 @@ const createRoom = async (req, res) => {
       });
     }
 
+    const inviteCode = generateInviteCode();
+
     const newPeerShareRoom = await PeerShareRoom.create({
       groupName,
       paymentTerm,
@@ -34,10 +37,11 @@ const createRoom = async (req, res) => {
           role: "admin",
         },
       ],
+      inviteCode,
     });
 
     return res.status(200).json({
-      message: "Room created successfully",
+      inviteCode: newPeerShareRoom.inviteCode,
     });
   } catch (err) {
     return res.status(500).json({
@@ -48,7 +52,6 @@ const createRoom = async (req, res) => {
 
 const joinRoom = async (req, res) => {
   try {
-    
   } catch (err) {
     return res.status(500).json({
       message: "Something went wrong, please try again later",
