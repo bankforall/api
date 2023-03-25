@@ -61,6 +61,13 @@ const createRoom = async (req, res) => {
         {
           user: req.user._id,
           role: "admin",
+          fullname: req.user.fullname,
+          credit: req.user.creditScore,
+          avatar: req.user.avatar,
+          phoneNumber: req.user.phoneNumber,
+          bitRate: req.user.bitRate,
+          interest: req.user.interest,
+          totalInterest: req.user.totalInterest,
         },
       ],
       inviteCode,
@@ -214,12 +221,12 @@ const deposit = async (req, res) => {
 
       if (isRoomExist) {
         isRoomExist.balance += amount;
-      } else {
-        user.peerShareBalance.push({
-          peerShareRoom: roomid,
-          balance: amount,
-        });
       }
+    } else {
+      user.peerShareBalance.push({
+        peerShareRoom: roomid,
+        balance: amount,
+      });
     }
 
     await user.save();
@@ -242,6 +249,16 @@ const getRoomById = async (req, res) => {
   return res.status(200).json(room);
 };
 
+const biding = async (req, res) => {
+  try {
+    return res.status(200).json({ message: "Biding" });
+  } catch (err) {
+    return res.status(500).json({
+      message: "Something went wrong, please try again later",
+    });
+  }
+};
+
 module.exports = {
   createRoom,
   joinRoom,
@@ -249,4 +266,5 @@ module.exports = {
   getAllMembersInRoom,
   deposit,
   getRoomById,
+  biding,
 };
