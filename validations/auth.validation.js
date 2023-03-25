@@ -8,7 +8,6 @@ const registerSchema = Joi.object({
     .min(8)
     .required(),
   phoneNumber: Joi.string().min(10).max(10).required(),
-  avatar: Joi.string(),
 });
 
 const loginSchema = Joi.object({

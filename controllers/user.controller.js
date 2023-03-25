@@ -8,6 +8,8 @@ const getProfile = async (req, res) => {
     currentDE: req.user.currentDE,
     balance: req.user.balance,
     peerShareBalance: req.user.peerShareBalance,
+    avatar: req.user.avatar,
+    debt: req.user.debt,
   });
 };
 

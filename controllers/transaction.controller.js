@@ -55,7 +55,7 @@ const withdraw = async (req, res) => {
     await user.save();
 
     return res.status(200).json({
-      message: "Withdraw has been created successfully",
+      message: "withdraw has been created successfully",
     });
   } catch (err) {
     return res

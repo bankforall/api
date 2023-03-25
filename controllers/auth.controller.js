@@ -53,7 +53,7 @@ const signUp = async (req, res) => {
       return res.status(400).json({ message: "Invalid data" });
     }
 
-    const { fullname, email, password, phoneNumber, avatar } = req.body;
+    const { fullname, email, password, phoneNumber } = req.body;
 
     const userExist = await User.findOne({ email: email });
 
@@ -79,7 +79,6 @@ const signUp = async (req, res) => {
       email,
       password: hashedPassword,
       phoneNumber,
-      avatar,
     });
 
     const token = generateToken(user._id);

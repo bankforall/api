@@ -1,19 +1,32 @@
 const PeerShareRoom = require("../models/peershare-room.model");
+const User = require("../models/user.model");
 const generateInviteCode = require("../utils/inviteCode");
 const bcrypt = require("bcryptjs");
+const {
+  depositSchema,
+  joinRoomSchema,
+  createRoomSchema,
+} = require("../validations/peershare.validation");
 
 const createRoom = async (req, res) => {
   try {
+    if (createRoomSchema.validate(req.body).error) {
+      return res.status(400).json({ message: "Invalid body" });
+    }
+
     let {
-      groupName,
-      paymentTerm,
-      creditRequest,
-      noHand,
+      roomName,
+      paymentTermUnit,
+      creditRequirement,
+      maxMember,
       typeRoom,
       private,
       roomPassword,
+      bidTimeOut,
+      startBidDate,
+      paymentTerm,
     } = req.body;
-    const peerShareRoom = await PeerShareRoom.findOne({ groupName: groupName });
+    const peerShareRoom = await PeerShareRoom.findOne({ roomName: roomName });
 
     if (peerShareRoom) {
       return res.status(400).json({
@@ -37,13 +50,13 @@ const createRoom = async (req, res) => {
     }
 
     const newPeerShareRoom = await PeerShareRoom.create({
-      groupName,
+      roomName,
       paymentTerm,
-      creditRequest,
-      noHand,
+      creditRequirement,
+      maxMember,
       typeRoom,
       private,
-      roomPassword, 
+      roomPassword,
       members: [
         {
           user: req.user._id,
@@ -51,6 +64,9 @@ const createRoom = async (req, res) => {
         },
       ],
       inviteCode,
+      bidTimeOut,
+      startBidDate,
+      paymentTermUnit,
     });
 
     return res.status(200).json({
@@ -65,6 +81,12 @@ const createRoom = async (req, res) => {
 
 const joinRoom = async (req, res) => {
   try {
+    if (joinRoomSchema.validate(req.body).error) {
+      return res.status(400).json({
+        message: "Invalid body",
+      });
+    }
+
     const { inviteCode } = req.params;
     const { roomPassword } = req.body;
 
@@ -124,10 +146,10 @@ const getAllRooms = async (req, res) => {
   rooms = rooms.map((room) => {
     return {
       id: room._id,
-      groupName: room.groupName,
-      paymentTerm: room.paymentTerm,
-      creditRequest: room.creditRequest,
-      noHand: room.noHand,
+      roomName: room.roomName,
+      paymentTermUnit: room.paymentTermUnit,
+      creditRequirement: room.creditRequirement,
+      maxMember: room.maxMember,
       typeRoom: room.typeRoom,
       private: room.private,
       members: room.members,
@@ -147,9 +169,78 @@ const getAllMembersInRoom = async (req, res) => {
   return res.status(200).json(members);
 };
 
+const deposit = async (req, res) => {
+  try {
+    if (depositSchema.validate(req.body).error) {
+      return res.status(400).json({
+        message: "Invalid data",
+      });
+    }
+
+    const { id: roomid, amount } = req.body;
+
+    const user = await User.findOne({ _id: req.user._id });
+
+    if (user.balance < amount) {
+      return res.status(400).json({
+        message: "Not enough balance",
+      });
+    }
+
+    const peerShareRoom = await PeerShareRoom.findOne({ _id: roomid });
+
+    if (!peerShareRoom) {
+      return res.status(400).json({
+        message: "Room does not exist",
+      });
+    }
+
+    const isMember = peerShareRoom.members.find(
+      (member) => member.user.toString() === req.user._id.toString()
+    );
+
+    if (!isMember) {
+      return res.status(400).json({
+        message: "You are not a member of this room",
+      });
+    }
+
+    user.balance -= amount;
+
+    if (user.peerShareBalance.length > 0) {
+      const isRoomExist = user.peerShareBalance.find(
+        (room) => room.peerShareRoom.toString() === roomid.toString()
+      );
+
+      if (isRoomExist) {
+        isRoomExist.balance += amount;
+      } else {
+        user.peerShareBalance.push({
+          peerShareRoom: roomid,
+          balance: amount,
+        });
+      }
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "Deposit success",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: "Something went wrong, please try again later",
+    });
+  }
+};
+
+const getRoomById = async (req, res) => {};
+
 module.exports = {
   createRoom,
   joinRoom,
   getAllRooms,
   getAllMembersInRoom,
+  deposit,
+  getRoomById,
 };
