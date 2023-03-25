@@ -119,7 +119,23 @@ const joinRoom = async (req, res) => {
 };
 
 const getAllRooms = async (req, res) => {
-  const rooms = await PeerShareRoom.find({});
+  let rooms = await PeerShareRoom.find({});
+
+  rooms = rooms.map((room) => {
+    return {
+      id: room._id,
+      groupName: room.groupName,
+      paymentTerm: room.paymentTerm,
+      creditRequest: room.creditRequest,
+      noHand: room.noHand,
+      typeRoom: room.typeRoom,
+      private: room.private,
+      members: room.members,
+      inviteCode: room.inviteCode,
+      updatedAt: room.updatedAt,
+      createdAt: room.createdAt,
+    };
+  });
 
   return res.status(200).json(rooms);
 };
