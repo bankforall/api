@@ -234,7 +234,13 @@ const deposit = async (req, res) => {
   }
 };
 
-const getRoomById = async (req, res) => {};
+const getRoomById = async (req, res) => {
+  const { id } = req.params;
+
+  const room = await PeerShareRoom.findOne({ _id: id });
+
+  return res.status(200).json(room);
+};
 
 module.exports = {
   createRoom,

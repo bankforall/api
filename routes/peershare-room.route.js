@@ -31,7 +31,7 @@ router.post(
   deposit
 );
 
-router.post("/room/:id  ",
+router.get("/:id",
   passport.authenticate("jwt", { session: false }),
   getRoomById)
 
