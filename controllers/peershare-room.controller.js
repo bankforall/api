@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 
 const createRoom = async (req, res) => {
   try {
-    const {
+    let {
       groupName,
       paymentTerm,
       creditRequest,
@@ -57,9 +57,10 @@ const createRoom = async (req, res) => {
       inviteCode: newPeerShareRoom.inviteCode,
     });
   } catch (err) {
-    return res.status(500).json({
-      message: "Something went wrong, please try again later",
-    });
+    console.log(err);
+    // return res.status(500).json({
+    //   message: "Something went wrong, please try again later",
+    // });
   }
 };
 
