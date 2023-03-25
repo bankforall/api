@@ -83,10 +83,10 @@ const signUp = async (req, res) => {
 
     const token = generateToken(user._id);
 
-    // res.setHeader(
-    //   "Set-Cookie",
-    //   `token=${token}; HttpOnly; Path=/; Max-Age=7200; SameSite=Strict; Secure;`
-    // );
+    res.setHeader(
+      "Set-Cookie",
+      `token=${token}; HttpOnly; Path=/; Max-Age=7200; SameSite=Strict; Secure;`
+    );
 
     return res.status(200).json({
       access_token: token,
