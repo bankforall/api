@@ -44,7 +44,7 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
     },
-  debt: [
+    debt: [
       {
         peerShareRoom: {
           type: Schema.Types.ObjectId,

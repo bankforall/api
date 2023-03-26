@@ -79,6 +79,30 @@ const peerShareRoomSchema = new Schema(
           type: Number,
           default: 0,
         },
+        fullname: {
+          type: String,
+          required: true,
+        },
+        credit: {
+          type: String,
+          required: true,
+        },
+        avatar: {
+          type: String,
+          required: true,
+        },
+        phoneNumber: {
+          type: String,
+          required: true,
+        },
+        interest: {
+          type: Number,
+          default: 0,
+        },
+        totalInterest: {
+          type: Number,
+          default: 0,
+        },
       },
     ],
     history: [
