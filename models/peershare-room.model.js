@@ -95,10 +95,6 @@ const peerShareRoomSchema = new Schema(
           type: String,
           required: true,
         },
-        bitRate: {
-          type: Number,
-          default: 0,
-        },
         interest: {
           type: Number,
           default: 0,
