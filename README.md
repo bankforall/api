@@ -9,7 +9,6 @@ The platform will enable them to access loans, as well as share resources and kn
 - DB diagram: https://dbdiagram.io/d/6404ccf2296d97641d8589c7 <br />
 - Source api: https://docs.google.com/document/d/1CPJrx3pA0Jv5GVAcEpaOK1QWkTm8xNUX-t-2zn_s8hI/edit
 
----
 
 ## Technologies Used
 - [NodeJS](https://nodejs.org/)
