@@ -17,7 +17,7 @@ The platform will enable them to access loans, as well as share resources and kn
 ## Technologies Used
 - [NodeJS](https://nodejs.org/)
 - [ExpressJS](https://expressjs.com/)
-- [AWS] (https://aws.amazon.com/)
+- [AWS](https://aws.amazon.com/)
 
 ## Installation
 - To install the project on your local machine, follow these steps:
