@@ -266,5 +266,5 @@ module.exports = {
   getAllRooms,
   getAllMembersInRoom,
   payForPeerShare,
-  getRoomById,
+  getRoomById
 };
