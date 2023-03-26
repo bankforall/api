@@ -99,10 +99,6 @@ const peerShareRoomSchema = new Schema(
           type: Number,
           default: 0,
         },
-        totalInterest: {
-          type: Number,
-          default: 0,
-        },
       },
     ],
     history: [
