@@ -2,6 +2,7 @@ const PeerShareRoom = require("../models/peershare-room.model");
 const User = require("../models/user.model");
 const generateInviteCode = require("../utils/inviteCode");
 const bcrypt = require("bcryptjs");
+const { convertTime } = require("../utils/time");
 
 const {
   depositSchema,
@@ -129,7 +130,13 @@ const joinRoom = async (req, res) => {
 
     if (isMember) {
       return res.status(400).json({
-        message: "You are already a member of this room",
+        status: true,
+      });
+    }
+
+    if (peerShareRoom.members.length >= peerShareRoom.maxMember) {
+      return res.status(400).json({
+        status: false,
       });
     }
 
@@ -145,7 +152,7 @@ const joinRoom = async (req, res) => {
     await peerShareRoom.save();
 
     return res.status(200).json({
-      message: "You have successfully joined the room",
+      status: true,
     });
   } catch (err) {
     return res.status(500).json({
@@ -155,23 +162,7 @@ const joinRoom = async (req, res) => {
 };
 
 const getAllRooms = async (req, res) => {
-  let rooms = await PeerShareRoom.find({});
-
-  rooms = rooms.map((room) => {
-    return {
-      id: room._id,
-      roomName: room.roomName,
-      paymentTermUnit: room.paymentTermUnit,
-      creditRequirement: room.creditRequirement,
-      maxMember: room.maxMember,
-      typeRoom: room.typeRoom,
-      private: room.private,
-      members: room.members,
-      inviteCode: room.inviteCode,
-      updatedAt: room.updatedAt,
-      createdAt: room.createdAt,
-    };
-  });
+  const rooms = await PeerShareRoom.find({});
 
   return res.status(200).json(rooms);
 };
@@ -179,6 +170,13 @@ const getAllRooms = async (req, res) => {
 const getAllMembersInRoom = async (req, res) => {
   const { id } = req.params;
   const rooms = await PeerShareRoom.findOne({ _id: id });
+
+  if (!rooms) {
+    return res.status(400).json({
+      message: "Room does not exist",
+    });
+  }
+
   const members = rooms.members;
   return res.status(200).json(members);
 };
@@ -262,85 +260,6 @@ const getRoomById = async (req, res) => {
   return res.status(200).json(room);
 };
 
-const biding = async (req, res) => {
-  try {
-    return res.status(200).json({ message: "Biding" });
-  } catch (err) {
-    return res.status(500).json({
-      message: "Something went wrong, please try again later",
-    });
-  }
-};
-
-const checkForStart = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const peerShareRoom = await PeerShareRoom.findOne({ _id: id });
-
-    if (!peerShareRoom) {
-      return res.status(400).json({
-        message: "Room does not exist",
-      });
-    }
-
-    const isAllPaid = peerShareRoom.members.every((member) => member.isPaid);
-
-    const now = new Date();
-    const startBidDate = new Date(peerShareRoom.startBidDate);
-
-    if (now > startBidDate && !isAllPaid) {
-      const user = await User.findOne({ _id: req.user._id });
-
-      user.peerShareBalance.forEach((room) => {
-        if (room.peerShareRoom.toString() === peerShareRoom._id.toString()) {
-          user.balance += room.balance;
-          room.balance = 0;
-
-          peerShareRoom.members.forEach((member) => {
-            if (member.user.toString() === user._id.toString()) {
-              member.isPaid = false;
-            }
-          });
-
-          peerShareRoom.save();
-        }
-      });
-
-      user.peerShareBalance = user.peerShareBalance.filter(
-        (room) => room.balance > 0
-      );
-
-      await user.save();
-
-      const deleteRoom = await PeerShareRoom.deleteOne({
-        _id: peerShareRoom._id,
-      });
-
-      return res.status(400).json({
-        readyForBid: false,
-      });
-    }
-
-    if (!isAllPaid) {
-      return res.status(400).json({
-        readyForBid: false,
-      });
-    }
-
-    return res.status(200).json({
-      readyForBid: true,
-      countMemberPaid: peerShareRoom.members.length,
-      maxMember: peerShareRoom.maxMember,
-      startBidDate: peerShareRoom.startBidDate,
-    });
-  } catch (err) {
-    return res.status(500).json({
-      message: "Something went wrong, please try again later",
-    });
-  }
-};
-
 module.exports = {
   createRoom,
   joinRoom,
@@ -348,6 +267,4 @@ module.exports = {
   getAllMembersInRoom,
   payForPeerShare,
   getRoomById,
-  biding,
-  checkForStart,
 };

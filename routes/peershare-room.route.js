@@ -7,8 +7,6 @@ const {
   getAllMembersInRoom,
   payForPeerShare,
   getRoomById,
-  biding,
-  checkForStart,
 } = require("../controllers/peershare-room.controller");
 
 router.post(
@@ -37,14 +35,6 @@ router.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   getRoomById
-);
-
-router.patch("/", biding);
-
-router.get(
-  "/:id/check",
-  passport.authenticate("jwt", { session: false }),
-  checkForStart
 );
 
 module.exports = router;
