@@ -1,9 +1,8 @@
-const passport = require("passport");
 const router = require("express").Router();
-const { signIn, signUp } = require("../controllers/auth.controller");
 
-router.post("/signin", signIn);
+const authController = require("../controllers/auth.controller");
 
-router.post("/signup", signUp);
+router.post("/sign-in", authController.signIn);
+router.post("/sign-up", authController.signUp);
 
 module.exports = router;
