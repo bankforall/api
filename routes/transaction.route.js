@@ -1,17 +1,20 @@
 const router = require("express").Router();
-const { deposit, withdraw } = require("../controllers/transaction.controller");
+const transactionController = require("../controllers/transaction.controller");
+
 const passport = require("passport");
 
+// TODO: Add swagger documentation for deposit
 router.post(
   "/deposit",
   passport.authenticate("jwt", { session: false }),
-  deposit
+  transactionController.deposit
 );
 
+// TODO: Add swagger documentation for withdraw
 router.post(
   "/withdraw",
   passport.authenticate("jwt", { session: false }),
-  withdraw
+  transactionController.withdraw
 );
 
 module.exports = router;

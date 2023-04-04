@@ -1,4 +1,5 @@
 # Bank For All - Peer Share and Microfinance Platform for All
+
 This is an open-source project aimed at creating a peer sharing and microfinance platform for people who unemployed or low-income individuals or groups who otherwise would have no other access to financial services.
 
 The platform will enable them to access loans, as well as share resources and knowledge with each other, thereby creating a sustainable community.
@@ -6,21 +7,62 @@ The platform will enable them to access loans, as well as share resources and kn
 > If any of you have an idea to share with us, please feel free to open a pull request.
 
 ## Workflow
+
 - DB diagram: https://dbdiagram.io/d/6404ccf2296d97641d8589c7 <br />
 - Source api: https://docs.google.com/document/d/1CPJrx3pA0Jv5GVAcEpaOK1QWkTm8xNUX-t-2zn_s8hI/edit
 
-
 ## Technologies Used
+
 - [NodeJS](https://nodejs.org/)
 - [ExpressJS](https://expressjs.com/)
 - [AWS](https://aws.amazon.com/)
 
-## Installation
-- To install the project on your local machine, follow these steps:
-- Clone the repository using `git clone https://github.com/<username>/<repository-name>.git`.
-- Install the dependencies by running `npm install` in the root directory.
-- Start the client by running `npm run dev`.
-- Open your browser and navigate to http://localhost:3000.
+## How to run the project
+
+**Clone the project**
+
+```bash
+git clone https://github.com/bankforall/api.git
+```
+
+**Change directory**
+
+```bash
+cd api
+```
+
+**Create a .env file**
+
+```bash
+touch .env
+```
+
+**Install dependencies**
+
+```bash
+npm install
+```
+
+**Run the project**
+
+```bash
+npm run dev
+```
+
+## .env file example
+
+```bash
+PORT=5000
+MONGO_URI=
+JWT_SECRET_KEY=
+NODE_ENV=
+```
+
+## API Documentation
+
+The API documentation can be found [https://localhost:5000/docs](https://localhost:5000/docs).
+
+> Note: The API documentation is only available in development mode.
 
 ## Contributing
 
@@ -51,4 +93,3 @@ We also welcome contributions to the project's documentation. If you notice any 
 ## License
 
 This project is licensed under the [MIT License](./LICENSE).
-

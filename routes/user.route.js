@@ -1,17 +1,20 @@
 const router = require("express").Router();
 const passport = require("passport");
-const { getProfile, getSummary } = require("../controllers/user.controller");
 
+const userController = require("../controllers/user.controller");
+
+// TODO: Add swagger documentation for getProfile
 router.get(
   "/profile",
   passport.authenticate("jwt", { session: false }),
-  getProfile
+  userController.getProfile
 );
 
+// TODO: Add swagger documentation for getSummary
 router.get(
   "/summary",
   passport.authenticate("jwt", { session: false }),
-  getSummary
+  userController.getSummary
 );
 
 module.exports = router;

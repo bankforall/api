@@ -1,40 +1,47 @@
 const router = require("express").Router();
 const passport = require("passport");
-const {
-  createRoom,
-  joinRoom,
-  getAllRooms,
-  getAllMembersInRoom,
-  payForPeerShare,
-  getRoomById,
-} = require("../controllers/peershare-room.controller");
+const peershareRoomController = require("../controllers/peershare-room.controller");
 
+// TODO: Add swagger documentation for joinRoom
 router.post(
   "/join/:inviteCode",
   passport.authenticate("jwt", { session: false }),
-  joinRoom
+  peershareRoomController.joinRoom
 );
 
-router.post("/", passport.authenticate("jwt", { session: false }), createRoom);
+// TODO: Add swagger documentation for createRoom
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  peershareRoomController.createRoom
+);
 
-router.get("/", passport.authenticate("jwt", { session: false }), getAllRooms);
+// TODO: Add swagger documentation for getAllRooms
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  peershareRoomController.getAllRooms
+);
 
+// TODO: Add swagger documentation for getAllMembersInRoom
 router.get(
   "/:id/member",
   passport.authenticate("jwt", { session: false }),
-  getAllMembersInRoom
+  peershareRoomController.getAllMembersInRoom
 );
 
+// TODO: Add swagger documentation for getAllTransactionsInRoom
 router.post(
   "/pay",
   passport.authenticate("jwt", { session: false }),
-  payForPeerShare
+  peershareRoomController.payForPeerShare
 );
 
+// TODO: Add swagger documentation for getRoomById
 router.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
-  getRoomById
+  peershareRoomController.getRoomById
 );
 
 module.exports = router;

@@ -3,6 +3,7 @@ const {
   loginSchema,
   registerSchema,
 } = require("../validations/auth.validation");
+
 const bcrypt = require("bcryptjs");
 const { generateToken } = require("../utils/token");
 
